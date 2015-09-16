@@ -31,8 +31,8 @@ request.setAttribute("linshiList", p.getResult());
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=0.5, maximum-scale=2.0, user-scalable=yes" />     
 <meta name="apple-mobile-web-app-capable" content="yes" /> 
-<script type="text/javascript" src="admin/Js/jquery.js"></script>
-<!-- <script type="text/javascript" src="admin/Js/buildHtml.js"></script> -->
+<script type="text/javascript" src="js/jquery1.11.0.js"></script>
+<script type="text/javascript" src="js/buildHtml.js"></script>
 <script type="text/javascript">
 var prepareSearch = false;
 var searching = false;
@@ -43,7 +43,7 @@ function doSearch(){
 	searching = true;
 	$.ajax({
 	    type: 'post',
-	    url: '/food/c/admin/food/listData',
+	    url: '/yycf/c/admin/food/listData',
 	    data: a,
 	    dataType:'json',
 	    success: function(json){
@@ -114,7 +114,7 @@ color: white;background: #999;height: 26px;line-height: 26px;margin-top: 10px;fo
 <div class="search">
 	<form name="form1">
 	<input name="name"  id="name" onkeyup="keyUp2();" onkeydown="keyDown2();" />
-	<img onclick="alert(1);" class="voice" src="images/voice_24.png" alt="" />
+<!-- 	<img onclick="alert(1);" class="voice" src="images/voice_24.png" alt="" /> -->
 	</form>
 	<div class="result">
 		<div class="none">没有合适的结果</div>

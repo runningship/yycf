@@ -1,6 +1,3 @@
 function test1(){
-	alert($('#con').css('color'));
+	alert('function in test12');
 }
-
-$(function(){
-});

@@ -28,7 +28,7 @@ public class StartUpListener implements ServletContextListener{
 	}
 
 	private void initModule() {
-		ModuleManager.add("com.youwei.makesite");
+		ModuleManager.add("org.bc.yycf");
 	}
 
 	public static synchronized void initDataSource(){
