@@ -1,3 +1,3 @@
 function test1(){
-	alert('function in test12');
+	alert('function in test');
 }
