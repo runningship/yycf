@@ -47,7 +47,13 @@ function doSearch(){
 	    data: a,
 	    dataType:'json',
 	    success: function(json){
-	        buildHtmlWithJsonArray("resultItem",json['data']);
+	    	buildHtmlWithJsonArray("resultItem",json['data']);	
+	    	if(json['data'].length<=0){
+	    		$('#empty').text('没有名称包含 '+$('#name').val()+' 的食物');
+	    		$('#empty').show();
+	    	}else{
+	    		$('#empty').hide();
+	    	}
 	    },
 	    complete:function(){
 	    	searching = false;
@@ -103,13 +109,13 @@ color: white;background: #999;height: 26px;line-height: 26px;margin-top: 10px;fo
 .row .items{display:inline}
 .search .result{background: white;color: black;font-size: 18px;margin-left: 30px;width: 90%;position: absolute; max-height:400px;overflow: auto;}
 .search .result .none{font-size:13px;display:none}
-.search .result  div{height:40px;line-height:40px;border-bottom: 1px solid #eee;margin-left:12px;}
+.search .result  div{height:40px;line-height:40px;border-bottom: 1px solid #eee;margin-left:12px;color: #254A65;}
+.search .result .tips{float: right; margin-right: 7pt;    font-size: 10pt;    color: #ccc;}
+.refresh{    text-align: center;    margin-top: 10pt;    color: skyblue;    text-decoration: underline;}
+.search .result .empty{font-size:10pt;}
 </style>
 </head>
 <body onclick="bodyClick();">
-<div class="top">
-	<a href="search.jsp">刷新</a><span class="historyBtn">历史搜索</span>
-</div>
 <div class="main">
 <div class="search">
 	<form name="form1">
@@ -117,9 +123,9 @@ color: white;background: #999;height: 26px;line-height: 26px;margin-top: 10px;fo
 <!-- 	<img onclick="alert(1);" class="voice" src="images/voice_24.png" alt="" /> -->
 	</form>
 	<div class="result">
-		<div class="none">没有合适的结果</div>
+		<div id="empty" class="empty"  style="display:none;"></div>
 		<span>
-			<div class="resultItem"  xx="query" style="display:none" onclick="detail($[id])">$[name]</div>
+			<div class="resultItem"  xx="query" style="display:none" onclick="detail($[id])">$[name] <span class="tips">搜索</span></div>
 		</span>
 	</div>
 </div>
@@ -175,6 +181,7 @@ color: white;background: #999;height: 26px;line-height: 26px;margin-top: 10px;fo
 		</div></td>
 	</tr>
 	</table>
+	<div class="refresh" onclick="window.location.reload();">换一组</div>
 </div>
 </div>
 </body>
