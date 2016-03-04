@@ -1,9 +1,14 @@
 package org.bc.yycf;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 
 import org.apache.commons.lang.StringUtils;
 import org.bc.sdak.CommonDaoService;
@@ -16,6 +21,7 @@ import org.bc.web.Module;
 import org.bc.web.PlatformExceptionType;
 import org.bc.web.WebMethod;
 import org.bc.yycf.entity.Food;
+import org.bc.yycf.entity.Nutrient;
 import org.bc.yycf.util.DataHelper;
 
 @Module(name="/admin/food")
@@ -45,6 +51,48 @@ public class FoodService {
 	@WebMethod
 	public ModelAndView add(){
 		ModelAndView mv = new ModelAndView();
+		return mv;
+	}
+	
+	@WebMethod
+	public ModelAndView cacu(String data){
+		ModelAndView mv = new ModelAndView();
+		JSONArray arr = JSONArray.fromObject(data);
+		Map<String , JSONObject> result = new HashMap<String , JSONObject>();
+		for(int i=0; i<arr.size(); i++){
+			JSONObject jobj = arr.getJSONObject(i);
+			String foodId = jobj.getString("foodId");
+			String value = jobj.getString("value");
+			List<Nutrient> list = dao.listByParams(Nutrient.class, "from Nutrient where foodId=?	order by leibie",Integer.valueOf(foodId));
+			for(Nutrient nutrient : list){
+				if(!result.containsKey(nutrient.name)){
+					JSONObject tmp = new JSONObject();
+					tmp.put("value", 0f);
+					result.put(nutrient.name, tmp);
+				}
+				JSONObject obj = result.get(nutrient.name);
+				Double xx = obj.getDouble("value")+  nutrient.value*Float.valueOf(value)/100;
+				DecimalFormat df = new DecimalFormat("###.0000");
+				obj.put("value", df.format(xx));
+				obj.put("unit", nutrient.unit);
+				result.put(nutrient.name, obj);
+			}
+		}
+		
+		//to array
+		JSONArray arrResult = new JSONArray();
+		int classIndex=0;
+		for(String key : result.keySet()){
+			JSONObject obj = new JSONObject();
+			obj.put("name", key);
+			JSONObject target = result.get(key);
+			obj.put("value", target.getDouble("value"));
+			obj.put("unit", target.getString("unit"));
+			obj.put("classIndex", classIndex);
+			arrResult.add(obj);
+			classIndex = classIndex^1;
+		}
+		mv.data.put("result", arrResult);
 		return mv;
 	}
 	

@@ -76,7 +76,45 @@ function clearResult(){
 }
 function setFood(obj){
 	$(input).val($(obj).text());
+	$(input).attr('foodId' , $(obj).attr('foodId'));
 	clearResult();
+}
+
+function addFoodItem(){
+	var html='<div class="item">'
+			+'<input value="" placeholder="食物名称" class="name" onkeyup="keyUp2(this);" onkeydown="keyDown2(this);" ></input><input type="tel" class="value" placeholder="重量(g)" />'
+			+'</div>'
+			+'<div class="clear"></div>';
+	$('.foodlist').append(html);
+}
+
+function cacu(){
+	var items = $('.foodlist .item');
+	var arr = [];
+	for(var i=0;i<items.length;i++){
+		var json = JSON.parse("{}");
+		json.foodId= $(items[i]).find('.name').attr('foodId');
+		json.value= $(items[i]).find('.value').val();
+		if(!json.foodId){
+			layer.msg('请先选择食物');
+			return;
+		}
+		if(!json.value){
+			layer.msg('请先填写摄入量');
+			return;
+		}
+		arr.push(json);
+	}
+	$.ajax({
+	    type: 'post',
+	    url: '/yycf/c/admin/food/cacu',
+	    data: {data : JSON.stringify(arr)},
+	    dataType:'json',
+	    success: function(json){
+	    	buildHtmlWithJsonArray("nutrient",json.result);
+	    	$('#result').show();
+	    }
+	  });
 }
 </script>
 <style type="text/css">
@@ -97,8 +135,8 @@ body{margin:0px;font-family: 微软雅黑;}
 .result .item{    height: 25pt;    line-height: 25pt;}
 .result .name{text-align:center;}
 .result .value{text-align:right;padding-right:15pt;}
-.result .odd{background: beige;}
-.result .even{background: lavender;}
+.result .row_1{background: beige;}
+.result .row_0{background: lavender;}
 
 .search {position: absolute;    width: 100%;}
 .search .result{background: white;color: black;font-size: 18px;margin-left: auto; margin-right:auto; width: 90%;max-height:400px;overflow: auto;    margin-top: 0pt;}
@@ -115,27 +153,19 @@ body{margin:0px;font-family: 微软雅黑;}
 	<div class="toolbar"><span class="title">营养计算器</span><a class="fr white" href="#" onclick="addFoodItem();">添加食物</a></div>
 	<div class="foodlist">
 		<div class="item">
-			<input value="" placeholder="食物名称" class="name" onkeyup="keyUp2(this);" onkeydown="keyDown2(this);" ></input><input class="value" placeholder="重量(g)" foodid="12"  />
+			<input value="" placeholder="食物名称" class="name" onkeyup="keyUp2(this);" onkeydown="keyDown2(this);" ></input><input class="value" placeholder="重量(g)"  type="tel" />
 		</div>
 		<div class="clear"></div>
 		
 	</div>
 	
-	<div class="cacu-btn">计算</div>
+	<div class="cacu-btn" onclick="cacu();">计算</div>
 	
 	<div class="result hidden" id="result">
 		<table align="center" cellpadding="0" cellspacing="0">
-			<tr class="item odd">
-				<td class="name">维生素A</td>
-				<td class="value">20毫克</td>
-			</tr>
-			<tr class="item even">
-				<td class="name">维生素A</td>
-				<td class="value">20毫克</td>
-			</tr>
-			<tr class="item odd">
-				<td class="name">维生素A</td>
-				<td class="value">20毫克</td>
+			<tr class="item row_$[classIndex] nutrient">
+				<td class="name">$[name] </td>
+				<td class="value">$[value] $[unit]</td>
 			</tr>
 		</table>
 	</div>
