@@ -89,6 +89,20 @@ function addFoodItem(){
 }
 
 function cacu(){
+	var arr = getFoodItems();
+	$.ajax({
+	    type: 'post',
+	    url: '/yycf/c/admin/food/cacu',
+	    data: {data : JSON.stringify(arr)},
+	    dataType:'json',
+	    success: function(json){
+	    	buildHtmlWithJsonArray("nutrient",json.result);
+	    	$('#result').show();
+	    }
+	  });
+}
+
+function getFoodItems(){
 	var items = $('.foodlist .item');
 	var arr = [];
 	for(var i=0;i<items.length;i++){
@@ -105,14 +119,19 @@ function cacu(){
 		}
 		arr.push(json);
 	}
+	return arr;
+}
+
+function saveAsDiet(){
+	var arr = getFoodItems();
 	$.ajax({
 	    type: 'post',
-	    url: '/yycf/c/admin/food/cacu',
+	    url: '/yycf/c/admin/food/saveAsDiet',
 	    data: {data : JSON.stringify(arr)},
 	    dataType:'json',
 	    success: function(json){
-	    	buildHtmlWithJsonArray("nutrient",json.result);
-	    	$('#result').show();
+	    	layer.msg('保存成功');
+	    	$('#saveAsDiet').remove();
 	    }
 	  });
 }
@@ -174,6 +193,7 @@ body{margin:0px;font-family: 微软雅黑;}
 		<div class="result">
 			<div id="empty" class="empty"  style="display:none;"></div>
 			<span>
+				<div id="saveAsDiet" class="cacu-btn" onclick="saveAsDiet()">保存到饮食记录</div>
 				<div class="resultItem"  xx="query" style="display:none" foodId="$[id]" onclick="setFood(this)">$[name]</div>
 			</span>
 		</div>
