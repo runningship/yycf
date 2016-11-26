@@ -13,7 +13,7 @@ public class ConfigCache {
 
 	private static Properties props = new Properties();
 	
-	private static final String confFilePath = "D:\\conf\\makesite.properties";
+	private static final String confFilePath = "D:\\conf\\yycf.properties";
 	static{
 		load();
 	}
@@ -23,7 +23,7 @@ public class ConfigCache {
 			if(file.exists()){
 				props.load(FileUtils.openInputStream(file));
 			}else{
-				InputStream is = ConfigCache.class.getResourceAsStream("makesite.properties");
+				InputStream is = ConfigCache.class.getResourceAsStream("yycf.properties");
 				props.load(is);
 				is.close();
 			}

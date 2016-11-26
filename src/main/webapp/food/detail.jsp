@@ -1,3 +1,6 @@
+<%@page import="org.apache.commons.lang.StringUtils"%>
+<%@page import="java.util.Date"%>
+<%@page import="org.bc.yycf.entity.SearchHistory"%>
 <%@page import="org.bc.yycf.entity.Food"%>
 <%@page import="java.util.Comparator"%>
 <%@page import="java.util.Collections"%>
@@ -12,7 +15,22 @@
 <%@ taglib prefix="f" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%
 String foodId = request.getParameter("foodId");
+String openid = request.getParameter("openid");
+
 CommonDaoService dao = SimpDaoTool.getGlobalCommonDaoService();
+if(StringUtils.isNotEmpty(openid)){
+	SearchHistory search = dao.getUniqueByParams(SearchHistory.class, new String[]{"openid" , "foodId"}, new Object[]{openid , Integer.valueOf(foodId)});
+	if(search!=null){
+		search.time = new Date();
+	}else{
+		search = new SearchHistory();
+		search.foodId = Integer.valueOf(foodId);
+		search.openId = openid;
+		search.time = new Date();
+		dao.saveOrUpdate(search);
+	}
+}
+
 List<Map> list = dao.listAsMap("select name as name , value as value , unit as unit from Nutrient where foodId=? and unit <>'%' ", Integer.valueOf(foodId));
 
 //计算每种营养素的均值avg

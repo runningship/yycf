@@ -25,6 +25,12 @@
 		</dependency>
 
 		<dependency>
+			<groupId>com.thoughtworks.xstream</groupId>
+			<artifactId>xstream</artifactId>
+			<version>1.3.1</version>
+		</dependency>
+		
+		<dependency>
 			<groupId>org.bc</groupId>
 			<artifactId>sdak</artifactId>
 			<version>makesite1.0</version>

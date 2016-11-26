@@ -17,6 +17,15 @@
 	  <session-timeout>1440</session-timeout>
 	 </session-config>
     
+    <servlet>
+        <servlet-name>wx</servlet-name>
+        <servlet-class> org.bc.yycf.WeiXinServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+	    <servlet-name>wx</servlet-name>
+	    <url-pattern>/wx/*</url-pattern>
+	</servlet-mapping>
+	
 	<filter>
     	<filter-name>grandFilter</filter-name>
     	<filter-class>org.bc.web.GrandFilter</filter-class>
@@ -31,4 +40,6 @@
     	<url-pattern>/c/*</url-pattern>
     </filter-mapping>
     
+    
+	
 </web-app>

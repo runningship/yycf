@@ -112,4 +112,5 @@ color: white;background: #999;height: 26px;line-height: 26px;margin-top: 10px;fo
 	</div>
 </div>
 </body>
+<!-- 准备做弹出窗口用 -->
 </html>

@@ -1,3 +1,6 @@
+<%@page import="org.jsoup.nodes.Document"%>
+<%@page import="org.jsoup.Jsoup"%>
+<%@page import="org.bc.yycf.util.PullDataHelper"%>
 <%@page import="java.util.Comparator"%>
 <%@page import="java.util.Collections"%>
 <%@page import="java.util.HashMap"%>
@@ -10,6 +13,11 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
 String name = request.getParameter("name");
+<!--增加百度查看链接-->
+String html = PullDataHelper.getHttpData("http://baike.baidu.com/search?word="+name,"utf8");
+Document result = Jsoup.parse(html);
+String href = result.select(".search-list .result-title").first().attr("href");
+request.setAttribute("link", href);
 CommonDaoService dao = SimpDaoTool.getGlobalCommonDaoService();
 Page<Map> p = new Page<Map>();
 p.order = "desc";
@@ -64,7 +72,7 @@ position: relative;}
 </style>
 </head>
 <body>
-<div class="name">${name }</div>
+<div class="name" ><a href="${link }">${name }</a></div>
 <div class="desc">每100克的营养成分含量</div>
 <c:forEach items="${netrients }"  var="netrient">
 	<div onclick="detail(${netrient.fid})" class="skillbar clearfix " data-percent="${netrient.value / maxValue }">
@@ -74,4 +82,5 @@ position: relative;}
 	</div>
 </c:forEach>
 </body>
+<!-- 食物营养成分含量比例排序 -->
 </html>
