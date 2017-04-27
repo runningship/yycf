@@ -13,7 +13,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
 String name = request.getParameter("name");
-<!--增加百度查看链接-->
+//增加百度查看链接
 String html = PullDataHelper.getHttpData("http://baike.baidu.com/search?word="+name,"utf8");
 Document result = Jsoup.parse(html);
 String href = result.select(".search-list .result-title").first().attr("href");

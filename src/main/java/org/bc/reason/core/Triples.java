@@ -1,7 +1,7 @@
 package org.bc.reason.core;
 
 /**
- * 三段式
+ * 三段式，声明式
  * 	A X B
  * 如狗会游泳，苹果是水果
  */

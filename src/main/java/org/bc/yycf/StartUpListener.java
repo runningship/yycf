@@ -37,12 +37,11 @@ public class StartUpListener implements ServletContextListener{
 //		settings.put(AvailableSettings.USER, "root");
 //		settings.put(AvailableSettings.PASS, "");
 		settings.put(AvailableSettings.SHOW_SQL, "true");
-		settings.put(AvailableSettings.DRIVER, "com.microsoft.sqlserver.jdbc.SQLServerDriver");
-//		settings.put(AvailableSettings.DIALECT, "org.hibernate.dialect.SQLServer2008Dialect");
-		settings.put(AvailableSettings.DIALECT, SQL2008Dialect.class.getName());
+//		settings.put(AvailableSettings.DRIVER, "com.microsoft.sqlserver.jdbc.SQLServerDriver");
+//		settings.put(AvailableSettings.DIALECT, SQL2008Dialect.class.getName());
 		
-//		settings.put(AvailableSettings.DRIVER, "com.mysql.jdbc.Driver");
-//		settings.put(AvailableSettings.DIALECT, "org.hibernate.dialect.MySQL5Dialect");
+		settings.put(AvailableSettings.DRIVER, "com.mysql.jdbc.Driver");
+		settings.put(AvailableSettings.DIALECT, "org.hibernate.dialect.MySQL5Dialect");
 		
 		settings.put(AvailableSettings.CURRENT_SESSION_CONTEXT_CLASS, "thread");
 //		settings.put(AvailableSettings.HBM2DDL_AUTO, "update");
@@ -53,7 +52,7 @@ public class StartUpListener implements ServletContextListener{
 //		settings.put(AvailableSettings.PROXOOL_XML, "proxool.xml");//相对目录为classes
 		settings.put(AvailableSettings.PROXOOL_XML, ConfigCache.get("proxool_xml" ,"proxool.xml"));//相对目录为classes
 		settings.put(AvailableSettings.PROXOOL_EXISTING_POOL, "false");
-		settings.put(AvailableSettings.PROXOOL_POOL_ALIAS, "MSSQLProxool");
+		settings.put(AvailableSettings.PROXOOL_POOL_ALIAS, "SQLProxool");
 		
 //		settings.put("annotated.packages", HouseRent.class.getPackage().getName());
 		settings.put("annotated.packages", "org.bc.yycf.entity");

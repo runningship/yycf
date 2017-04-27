@@ -12,22 +12,23 @@ System.out.println(openid);
 CommonDaoService dao = SimpDaoTool.getGlobalCommonDaoService();
 Page<Food> p = new Page<Food>();
 p.setPageSize(5);
-p = dao.findPage(p , "from Food where leibie=? order by NewID()", "谷类");
+p = dao.findPage(p , "from Food where leibie=? order by rand()", "谷类");
+//随机排序
 request.setAttribute("guleiList", p.getResult());
 
-p = dao.findPage(p , "from Food where leibie=? order by NewID()", "蔬菜");
+p = dao.findPage(p , "from Food where leibie=? order by rand()", "蔬菜");
 request.setAttribute("sucaiList", p.getResult());
 
-p = dao.findPage(p , "from Food where leibie=? order by NewID()", "水果");
+p = dao.findPage(p , "from Food where leibie=? order by rand()", "水果");
 request.setAttribute("shuiguoList", p.getResult());
 
-p = dao.findPage(p , "from Food where leibie=? order by NewID()", "肉类");
+p = dao.findPage(p , "from Food where leibie=? order by rand()", "肉类");
 request.setAttribute("rouleiList", p.getResult());
 
-p = dao.findPage(p , "from Food where leibie=? order by NewID()", "菌类");
+p = dao.findPage(p , "from Food where leibie=? order by rand()", "菌类");
 request.setAttribute("junleiList", p.getResult());
 
-p = dao.findPage(p , "from Food where leibie=? order by NewID()", "零食饮料");
+p = dao.findPage(p , "from Food where leibie=? order by rand()", "零食饮料");
 request.setAttribute("linshiList", p.getResult());
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">

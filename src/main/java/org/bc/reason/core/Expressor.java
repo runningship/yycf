@@ -9,8 +9,9 @@ public class Expressor {
 			return diploid.text;
 		}
 		if(diploid.filter!=null && diploid.target!=null){
-			
-			return expressDiploid(diploid.filter)+"的"+expressDiploid(diploid.target);
+//			return expressDiploid(diploid.filter)+"的"+expressDiploid(diploid.target);
+			//TODO 加的还是不加的要找习惯用法记录
+			return expressDiploid(diploid.filter)+expressDiploid(diploid.target);
 		}else if(diploid.filter==null && diploid.target==null){
 			return "";
 		}else if(diploid.filter==null && diploid.target!=null){

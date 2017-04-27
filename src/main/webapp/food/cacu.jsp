@@ -90,6 +90,9 @@ function addFoodItem(){
 
 function cacu(){
 	var arr = getFoodItems();
+	if(!arr){
+		return;
+	}
 	$.ajax({
 	    type: 'post',
 	    url: '/yycf/c/admin/food/cacu',
@@ -137,14 +140,15 @@ function saveAsDiet(){
 }
 </script>
 <style type="text/css">
-body{margin:0px;font-family: 微软雅黑;}
+body{margin:0px;font-family: 微软雅黑; overflow:auto;}
 .fr{float:right;}
 .white{color:white;}
 .toolbar{    height: 26pt;    line-height: 26pt; background:#333;}
 .toolbar .title{color:white;}
-.foodlist .item {    height: 48pt;    line-height: 48pt;}
-.foodlist .value{    height: 38pt;    line-height: 47pt;    width: 25%;  text-align:center;    color: crimson;  float: right;    font-size: 17pt;    margin-right: 10pt;    border: none; }
-.foodlist .item .name{height: 38pt;    line-height: 47pt;    width: 60%;    text-align: center;  font-size: 17pt;    margin-right: 10pt;    border: none;}
+.foodlist {    max-height: 470px; overflow: auto;}
+.foodlist .item {    height: 48pt;    line-height: 48pt;margin-top:10pt;}
+.foodlist .value{    height: 38pt;    line-height: 47pt;    width: 55pt;  text-align:center;    color: crimson;  float: right;    font-size: 17pt;    margin-right: 5pt;    border: none; }
+.foodlist .item .name{height: 38pt;    line-height: 47pt;    width: 65%;    text-align: center;  font-size: 17pt;    margin-left: 5%;    border: none;}
 .foodlist .item .unit{margin-right:10pt;}
 .clear{    width: 94%;    border-bottom: 1px solid #ddd;    margin-left: auto;    margin-right: auto;}
 .cacu-btn{height: 28pt;    line-height: 28pt;    background: cadetblue;    color: white;    text-align: center;    width: 94%;    margin-left: auto;    margin-right: auto;    margin-top: 10pt;    border-radius: 32px;}
